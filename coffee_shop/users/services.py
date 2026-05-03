@@ -13,17 +13,19 @@ def get_user_service(request: Request) -> "UserService":
 UserServiceDep = Annotated["UserService", Depends(get_user_service)]
 
 class UserService:
-    def __init__(self, user_repository: UserRepository, password_sevice: PasswordService):
+    def __init__(self, user_repository: UserRepository, password_service: PasswordService):
         self.__repo = user_repository
-        self.__pass_service = password_sevice
+        self.__pass_service = password_service
 
     async def register(self, user: UserCreate, session: AsyncSession) -> User:
         if await self.__repo.exists_by_login(user.login, session):
             raise HTTPException(status.HTTP_409_CONFLICT)
         
-        user_model = User(login=user.login, password_hash=self.__pass_service)
+        password_hash = self.__pass_service.get_password_hash(user.password)
+        user_model = User(login=user.login, password_hash=password_hash)
         session.add(user_model)
         await session.commit()
+        return user_model
 
     async def get_by_id(self, id: int) -> User: ...
 

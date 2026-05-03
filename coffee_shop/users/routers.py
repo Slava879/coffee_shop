@@ -7,7 +7,7 @@ from coffee_shop.users.services import UserServiceDep
 router = APIRouter(prefix="/users")
 
 
-@router.post("")
+@router.post("/register")
 async def register(
     user: UserCreate, service: UserServiceDep, session: SessionDep
     ) -> UserSchema:
