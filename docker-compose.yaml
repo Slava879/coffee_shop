@@ -1,0 +1,15 @@
+services:
+  server:
+    build:
+      context: .
+      tags: [ coffee-shop ]
+    ports:
+      - 8000:8000
+  db:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: qwerty12
+      POSTGRES_DB: coffee_shop
+    volumes:
+      - ./db:/var/lib/postgresql/18/docker

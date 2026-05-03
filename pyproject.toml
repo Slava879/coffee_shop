@@ -1,0 +1,15 @@
+[project]
+name = "coffee-shop"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "asyncpg>=0.31.0",
+    "fastapi>=0.136.0",
+    "passlib[argon2]>=1.7.4",
+    "pydantic>=2.13.3",
+    "pyjwt>=2.12.1",
+    "sqlalchemy[aiosqlite,postgresql-asyncpg]>=2.0.48",
+    "uvicorn[standard]>=0.44.0",
+]
